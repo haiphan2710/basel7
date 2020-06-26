@@ -24,5 +24,18 @@
         "psr-4": {
             "HaiPhan\\BaseL7\\": "src/"
         }
+    },
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HaiPhan\\BaseL7\\Providers\\BaseL7ServiceProvider"
+            ]
+        }
     }
 }
