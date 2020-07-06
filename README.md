@@ -12,6 +12,10 @@ Base on Laravel 7
 
 # Usage Package
 
+## Download from composer
+
+- Run command: `composer require haiphan2710/basel7`
+
 ## Install BaseL7
 
 - For installing BaseL7, run command: php artisan basel7:install
