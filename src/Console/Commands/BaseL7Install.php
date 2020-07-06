@@ -4,6 +4,7 @@ namespace HaiPhan\BaseL7\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
 
 class BaseL7Install extends Command
 {
@@ -32,19 +33,37 @@ class BaseL7Install extends Command
     }
 
     /**
+     * Commands to call with their description.
+     *
+     * @var array
+     */
+    protected $calls = [
+        'key:generate' => 'Generated App Key.',
+        'laratrust:role' => 'Creating Role model',
+        'laratrust:permission' => 'Creating Permission model',
+        'laratrust:add-trait' => 'Adding LaratrustUserTrait to User model'
+    ];
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        Artisan::call('key:generate');
-        $this->info('Generated App Key.');
-
         Artisan::call('migrate:fresh', ['--seed' => true]);
         $this->info('Migrated and seeded all data.');
 
         Artisan::call('passport:install');
         $this->info('Installed Laravel Passport.');
+    }
+    /**
+     * Get the seeder path.
+     *
+     * @return string
+     */
+    protected function seederPath()
+    {
+        return database_path("seeds/LaratrustSeeder.php");
     }
 }

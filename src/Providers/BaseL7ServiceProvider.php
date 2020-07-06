@@ -4,7 +4,6 @@ namespace HaiPhan\BaseL7\Providers;
 
 use App\Models\User;
 use Carbon\Carbon;
-use HaiPhan\BaseL7\Console\Commands\BaseL7AuthInstall;
 use HaiPhan\BaseL7\Console\Commands\BaseL7Install;
 use HaiPhan\BaseL7\Console\Commands\BaseL7ModelCommand;
 use HaiPhan\BaseL7\Enums\RelationType;
@@ -49,7 +48,6 @@ class BaseL7ServiceProvider extends ServiceProvider
     {
         $this->commands([
             BaseL7Install::class,
-//            BaseL7AuthInstall::class,
             BaseL7ModelCommand::class,
         ]);
     }

@@ -6,12 +6,6 @@ use Illuminate\Support\Facades\Hash;
 $password = Hash::make(env('DEFAULT_USER_PASSWORD', 'secret'));
 
 return [
-    'auth' => [
-        'model' => [
-            'namespace' => '',
-        ],
-    ],
-
     'seeders' => [
         'roles' => [
             [

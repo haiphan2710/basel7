@@ -2,8 +2,8 @@
 
 namespace HaiPhan\BaseL7\Models;
 
-use App\BaseL7\Filters\Traits\CanSearch;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model as BaseModel;
+use HaiPhan\BaseL7\Filters\Traits\CanSearch;
 
 class Model extends BaseModel
 {

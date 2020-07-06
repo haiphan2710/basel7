@@ -7,13 +7,6 @@ use Illuminate\Foundation\Console\ModelMakeCommand;
 
 class BaseL7ModelCommand extends ModelMakeCommand
 {
-    public function __construct(Filesystem $files)
-    {
-        parent::__construct($files);
-
-        dd($this->arguments());
-    }
-
     /**
      * The console command name.
      *

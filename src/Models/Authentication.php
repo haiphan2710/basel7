@@ -2,8 +2,8 @@
 
 namespace HaiPhan\BaseL7\Models;
 
-use App\BaseL7\Filters\Traits\CanSearch;
 use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
+use HaiPhan\BaseL7\Filters\Traits\CanSearch;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;

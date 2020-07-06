@@ -2,7 +2,7 @@
 
 namespace HaiPhan\BaseL7\Filters\Traits;
 
-use App\BaseL7\Filters\BaseFilter;
+use HaiPhan\BaseL7\Filters\BaseFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 trait CanSearch
