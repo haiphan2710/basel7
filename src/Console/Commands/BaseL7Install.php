@@ -13,7 +13,8 @@ class BaseL7Install extends Command
      *
      * @var string
      */
-    protected $signature = 'basel7:install';
+    protected $signature = 'basel7:install
+                            {--setting : Setting Config, Migration, Seeder}';
 
     /**
      * The console command description.
@@ -23,47 +24,27 @@ class BaseL7Install extends Command
     protected $description = 'Install BaseL7 App';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Commands to call with their description.
-     *
-     * @var array
-     */
-    protected $calls = [
-        'key:generate' => 'Generated App Key.',
-        'laratrust:role' => 'Creating Role model',
-        'laratrust:permission' => 'Creating Permission model',
-        'laratrust:add-trait' => 'Adding LaratrustUserTrait to User model'
-    ];
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
+        if ($this->option('setting')) {
+            $this->publishSettingBaseL7();
+        }
+
         Artisan::call('migrate:fresh', ['--seed' => true]);
         $this->info('Migrated and seeded all data.');
 
         Artisan::call('passport:install');
         $this->info('Installed Laravel Passport.');
     }
-    /**
-     * Get the seeder path.
-     *
-     * @return string
-     */
-    protected function seederPath()
+
+    protected function publishSettingBaseL7()
     {
-        return database_path("seeds/LaratrustSeeder.php");
+        $this->call('vendor:publish', ['--tag' => 'basel7-config']);
+        $this->call('vendor:publish', ['--tag' => 'basel7-migration']);
+        $this->call('vendor:publish', ['--tag' => 'basel7-seeder']);
     }
 }

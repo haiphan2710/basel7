@@ -27,18 +27,31 @@ class BaseL7ServiceProvider extends ServiceProvider
         ]);
 
         if ($this->app->runningInConsole()) {
-            $this->registerMigrations();
             $this->publishConfig();
+            $this->publishMigrations();
+            $this->publishSeeder();
             $this->registerCommands();
         }
     }
 
     /**
+     * Publishes migrations
+     */
+    protected function publishMigrations()
+    {
+        $this->publishes([
+            __DIR__.'/../database/migrations' => database_path('migrations'),
+        ], 'basel7-migration');
+    }
+
+    /**
      * Load migrations
      */
-    protected function registerMigrations()
+    protected function publishSeeder()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->publishes([
+            __DIR__.'/../database/seeders' => database_path('seeders'),
+        ], 'basel7-seeder');
     }
 
     /**
@@ -64,10 +77,10 @@ class BaseL7ServiceProvider extends ServiceProvider
         ], 'basel7-config');
         $this->publishes([
             __DIR__.'/../config/laratrust.php' => config_path('laratrust.php'),
-        ], 'laratrust-config');
+        ], 'basel7-config');
         $this->publishes([
             __DIR__.'/../config/laratrust_seeder.php' => config_path('laratrust_seeder.php'),
-        ], 'laratrust-config');
+        ], 'basel7-config');
     }
 
     /**

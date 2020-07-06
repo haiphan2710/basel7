@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use App\BaseL7\Core\Model;
+use HaiPhan\BaseL7\Models\Model;
 
 class DummyClass extends Model
 {

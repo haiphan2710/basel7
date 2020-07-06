@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use App\BaseL7\Core\Authentication;
+use HaiPhan\BaseL7\Models\Authentication;
 
 class DummyClass extends Authentication
 {

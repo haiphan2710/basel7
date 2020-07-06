@@ -1,12 +1,27 @@
 <?php
 
-
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-
-use HaiPhan\BaseS7\Enums\Role as RoleEnum;
 
 class BaseL7Seeder extends Seeder
 {
+    /** @var string $roleModel */
+    protected $roleModel = Role::class;
+
+    /** @var string $userModel */
+    protected $userModel = User::class;
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $this->roles();
+    }
+
     /**
      * Roles
      *
@@ -14,22 +29,16 @@ class BaseL7Seeder extends Seeder
      */
     private function roles()
     {
-        return [
-            Role::create([
-                'name'         => RoleEnum::OWNER,
-                'display_name' => 'Owner Of System', // optional
-                'description'  => 'Full power in the system', // optional
-            ]),
-            Role::create([
-                'name'         => RoleEnum::ADMIN,
-                'display_name' => 'User Administrator', // optional
-                'description'  => 'Manage all content', // optional
-            ]),
-            Role::create([
-                'name'         => RoleEnum::EDITOR,
-                'display_name' => 'User Editor', // optional
-                'description'  => 'User is allowed to manage contents', // optional
-            ]),
-        ];
+        return $this->roleModel::insert(config('basel7.seeders'));
+    }
+
+    /**
+     * Roles
+     *
+     * @return array
+     */
+    private function users()
+    {
+        return $this->userModel::insert(config('basel7.users'));
     }
 }

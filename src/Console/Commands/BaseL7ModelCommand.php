@@ -26,7 +26,7 @@ class BaseL7ModelCommand extends ModelMakeCommand
      *
      * @var string
      */
-    protected $stubPath = '../Stubs';
+    protected $stubPath = __DIR__. '/../Stubs';
 
     /**
      * The console command description.
@@ -34,6 +34,17 @@ class BaseL7ModelCommand extends ModelMakeCommand
      * @var string
      */
     protected $description = 'Create a new Eloquent basel7-model class';
+
+    /**
+     * BaseL7ModelCommand constructor.
+     * @param Filesystem $files
+     */
+    public function __construct(Filesystem $files)
+    {
+        parent::__construct($files);
+
+        $this->addOption('auth');
+    }
 
     /**
      * Get the stub file for the generator.
@@ -46,7 +57,7 @@ class BaseL7ModelCommand extends ModelMakeCommand
             return $this->stubPath .'/pivot.basel7.stub';
         }
 
-        if ($this->hasOption('auth')) {
+        if ($this->option('auth')) {
             return $this->stubPath .'/auth.basel7.stub';
         }
 
