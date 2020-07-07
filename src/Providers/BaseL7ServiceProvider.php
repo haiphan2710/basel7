@@ -17,13 +17,13 @@ class BaseL7ServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->passportSetting();
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
             $this->publishMigrations();
             $this->publishSeeder();
             $this->registerCommands();
+            $this->passportSetting();
         }
     }
 
