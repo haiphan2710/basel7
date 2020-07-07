@@ -3,8 +3,6 @@
 namespace HaiPhan\BaseL7\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
 
 class BaseL7Install extends Command
 {
@@ -13,8 +11,7 @@ class BaseL7Install extends Command
      *
      * @var string
      */
-    protected $signature = 'basel7:install
-                            {--setting : Setting Config, Migration, Seeder}';
+    protected $signature = 'basel7:install';
 
     /**
      * The console command description.
@@ -30,15 +27,24 @@ class BaseL7Install extends Command
      */
     public function handle()
     {
-        if ($this->option('setting')) {
-            $this->publishSettingBaseL7();
-        }
+        $this->publishSettingBaseL7();
+        $this->info('Publish configurations, migrations and seeds');
 
-        Artisan::call('migrate:fresh', ['--seed' => true]);
+        $this->call('laratrust:role');
+        $this->info('Create Role model');
+
+        $this->call('migrate:fresh', ['--seed' => true]);
         $this->info('Migrated and seeded all data.');
 
-        Artisan::call('passport:install');
+        $this->call('passport:install', ['--force']);
         $this->info('Installed Laravel Passport.');
+
+        $this->call('basel7:model', ['name' => 'Models/User', '--auth' => true]);
+        $this->info('Create User model');
+
+        $this->call('db:seed', ['--class' => 'BaseL7Seeder']);
+        $this->info('Executed BaseL7Seeder');
+        $this->info('Installed Package!');
     }
 
     protected function publishSettingBaseL7()

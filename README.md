@@ -21,19 +21,22 @@ Base on Laravel 7
 
 - For installing BaseL7, run command: php artisan basel7:install
 
-## Authentication
+## Base model
 
-- For using authentication, User model need to extend class "HaiPhan\BaseL7\Models\Authentication"
+- Already for authentication API
+- We work models on folder `Models`
+- Go `providers` in `config/auth` file, update `model.users` to `App\Models\User::class`
 
 ## Create a model
 
 - Commands:
-  + Model: php artisan basel7:model ModelName
-  + Pivot: php artisan basel7:model Models/{ModelName} --pivot
+  - Auth: php artisan basel7:model Models/{ModelName} --auth
+  - Model: php artisan basel7:model Models/{ModelName}
+  - Pivot: php artisan basel7:model Models/{ModelName} --pivot
 
 ## Filter
 
 - Steps for using:
-  + Class need to extends "HaiPhan\BaseL7\Filters\BaseFilter"
-  + Create functions in class for the query params with value \n
-    Example: `public function nickname($nickname)` => Search nickname (with: value = $nickname)
+  - Class need to extends "HaiPhan\BaseL7\Filters\BaseFilter"
+  - Create functions in class for the query params with value
+    - Ex: `public function nickname($nickname)` => Search nickname (with: value = $nickname)

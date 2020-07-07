@@ -1,9 +1,6 @@
 <?php
 
 use HaiPhan\BaseL7\Enums\Role;
-use Illuminate\Support\Facades\Hash;
-
-$password = Hash::make(env('DEFAULT_USER_PASSWORD', 'secret'));
 
 return [
     'seeders' => [
@@ -27,13 +24,13 @@ return [
         'users' => [
             [
                 'nickname' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password' => $password,
+                'email'    => 'admin@gmail.com',
+                'password' => ''
             ],
             [
                 'nickname' => 'test_account',
-                'email' => 'test@gmail.com',
-                'password' => $password,
+                'email'    => 'test@gmail.com',
+                'password' => ''
             ],
         ]
     ]

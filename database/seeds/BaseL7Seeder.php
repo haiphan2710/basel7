@@ -3,15 +3,10 @@
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class BaseL7Seeder extends Seeder
 {
-    /** @var string $roleModel */
-    protected $roleModel = Role::class;
-
-    /** @var string $userModel */
-    protected $userModel = User::class;
-
     /**
      * Run the database seeds.
      *
@@ -20,6 +15,7 @@ class BaseL7Seeder extends Seeder
     public function run()
     {
         $this->roles();
+        $this->users();
     }
 
     /**
@@ -29,7 +25,7 @@ class BaseL7Seeder extends Seeder
      */
     private function roles()
     {
-        return $this->roleModel::insert(config('basel7.seeders'));
+        return Role::insert(config('basel7.seeders.roles'));
     }
 
     /**
@@ -39,6 +35,13 @@ class BaseL7Seeder extends Seeder
      */
     private function users()
     {
-        return $this->userModel::insert(config('basel7.users'));
+        $password = Hash::make(env('DEFAULT_USER_PASSWORD', 'secret'));
+        $users    = collect(config('basel7.users'))->map(function ($user) use ($password) {
+            $user->password = $password;
+
+            return $user;
+        })->toArray();
+
+        return User::insert($users);
     }
 }
