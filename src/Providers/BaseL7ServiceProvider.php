@@ -2,12 +2,9 @@
 
 namespace HaiPhan\BaseL7\Providers;
 
-use App\Models\User;
 use Carbon\Carbon;
 use HaiPhan\BaseL7\Console\Commands\BaseL7Install;
 use HaiPhan\BaseL7\Console\Commands\BaseL7ModelCommand;
-use HaiPhan\BaseL7\Enums\RelationType;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -21,10 +18,6 @@ class BaseL7ServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->passportSetting();
-
-        Relation::morphMap([
-            RelationType::USER => User::class
-        ]);
 
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
@@ -40,7 +33,7 @@ class BaseL7ServiceProvider extends ServiceProvider
     protected function publishMigrations()
     {
         $this->publishes([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
+            __DIR__.'/../../database/migrations' => database_path('migrations'),
         ], 'basel7-migration');
     }
 
@@ -50,7 +43,7 @@ class BaseL7ServiceProvider extends ServiceProvider
     protected function publishSeeder()
     {
         $this->publishes([
-            __DIR__.'/../database/seeders' => database_path('seeders'),
+            __DIR__.'/../../database/seeders' => database_path('seeders'),
         ], 'basel7-seeder');
     }
 
@@ -73,13 +66,13 @@ class BaseL7ServiceProvider extends ServiceProvider
     protected function publishConfig()
     {
         $this->publishes([
-            __DIR__.'/../config/basel7.php' => config_path('basel7.php'),
+            __DIR__.'/../../config/basel7.php' => config_path('basel7.php'),
         ], 'basel7-config');
         $this->publishes([
-            __DIR__.'/../config/laratrust.php' => config_path('laratrust.php'),
+            __DIR__.'/../../config/laratrust.php' => config_path('laratrust.php'),
         ], 'basel7-config');
         $this->publishes([
-            __DIR__.'/../config/laratrust_seeder.php' => config_path('laratrust_seeder.php'),
+            __DIR__.'/../../config/laratrust_seeder.php' => config_path('laratrust_seeder.php'),
         ], 'basel7-config');
     }
 

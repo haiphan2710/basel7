@@ -15,6 +15,7 @@ Base on Laravel 7
 ## Download from composer
 
 - Run command: `composer require haiphan2710/basel7`
+- Add `BaseL7ServiceProvider` to `providers` in `config/app` file
 
 ## Install BaseL7
 
@@ -33,6 +34,6 @@ Base on Laravel 7
 ## Filter
 
 - Steps for using:
-    + Class need to extends "HaiPhan\BaseL7\Filters\BaseFilter"
-    + Create functions in class for the query params with value.
-        Example: `public function nickname($nickname)` => Search nickname (with: value = $nickname)
+  + Class need to extends "HaiPhan\BaseL7\Filters\BaseFilter"
+  + Create functions in class for the query params with value \n
+    Example: `public function nickname($nickname)` => Search nickname (with: value = $nickname)
