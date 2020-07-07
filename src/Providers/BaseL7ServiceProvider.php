@@ -32,6 +32,10 @@ class BaseL7ServiceProvider extends ServiceProvider
      */
     protected function publishMigrations()
     {
+        $files = glob(database_path('migrations'));
+
+        dd($files);
+
         $this->publishes([
             __DIR__.'/../../database/migrations' => database_path('migrations'),
         ], 'basel7-migration');
@@ -43,7 +47,7 @@ class BaseL7ServiceProvider extends ServiceProvider
     protected function publishSeeder()
     {
         $this->publishes([
-            __DIR__.'/../../database/seeders' => database_path('seeders'),
+            __DIR__.'/../../database/seeds' => database_path('seeds'),
         ], 'basel7-seeder');
     }
 
