@@ -30,9 +30,6 @@ class BaseL7Install extends Command
         $this->publishSettingBaseL7();
         $this->info('Publish configurations, migrations and seeds');
 
-        $this->call('laratrust:role');
-        $this->info('Create Role model');
-
         $this->call('migrate:fresh', ['--seed' => true]);
         $this->info('Migrated and seeded all data.');
 
@@ -41,6 +38,9 @@ class BaseL7Install extends Command
 
         $this->call('basel7:model', ['name' => 'Models/User', '--auth' => true]);
         $this->info('Create User model');
+
+        $this->call('basel7:model', ['name' => 'Models/Role', '--role' => true]);
+        $this->info('Create Role model');
 
         $this->call('db:seed', ['--class' => 'BaseL7Seeder']);
         $this->info('Executed BaseL7Seeder');

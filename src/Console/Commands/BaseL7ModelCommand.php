@@ -44,6 +44,7 @@ class BaseL7ModelCommand extends ModelMakeCommand
         parent::__construct($files);
 
         $this->addOption('auth');
+        $this->addOption('role');
     }
 
     /**
@@ -59,6 +60,10 @@ class BaseL7ModelCommand extends ModelMakeCommand
 
         if ($this->option('auth')) {
             return $this->stubPath .'/auth.basel7.stub';
+        }
+
+        if ($this->option('role')) {
+            return $this->stubPath .'/role.basel7.stub';
         }
 
         return  $this->stubPath .'/model.basel7.stub';

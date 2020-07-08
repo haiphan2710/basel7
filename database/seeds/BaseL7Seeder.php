@@ -21,27 +21,28 @@ class BaseL7Seeder extends Seeder
     /**
      * Roles
      *
-     * @return array
+     * @return void
      */
     private function roles()
     {
-        return Role::insert(config('basel7.seeders.roles'));
+        collect(config('basel7.seeders.roles'))->each(function ($role) {
+            Role::create($role);
+        });
     }
 
     /**
      * Roles
      *
-     * @return array
+     * @return void
      */
     private function users()
     {
         $password = Hash::make(env('DEFAULT_USER_PASSWORD', 'secret'));
-        $users    = collect(config('basel7.users'))->map(function ($user) use ($password) {
-            $user->password = $password;
 
-            return $user;
-        })->toArray();
+        collect(config('basel7.seeders.users'))->each(function ($user) use ($password) {
+            $user['password'] = $password;
 
-        return User::insert($users);
+            User::create($user);
+        });
     }
 }
