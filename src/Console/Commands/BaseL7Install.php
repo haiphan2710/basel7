@@ -38,9 +38,6 @@ class BaseL7Install extends Command
 
         $this->createModels();
 
-        $this->call('db:seed', ['--class' => 'BaseL7Seeder']);
-        $this->info('Executed BaseL7Seeder');
-
         $this->info('Installed Package!');
     }
 
