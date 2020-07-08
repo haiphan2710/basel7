@@ -15,24 +15,37 @@ Base on Laravel 7
 ## Download from composer
 
 - Run command: `composer require haiphan2710/basel7`
-- Add `BaseL7ServiceProvider` to `providers` in `config/app` file
 
 ## Install BaseL7
 
-- For installing BaseL7, run command: php artisan basel7:install
-
-## Base model
-
-- Already for authentication API
-- We work models on folder `Models`
+- Add `BaseL7ServiceProvider` to `providers` in `config/app` file
+- For installing BaseL7: `php artisan basel7:install`
 - Go `providers` in `config/auth` file, update `model.users` to `App\Models\User::class`
+- Extends `HaiPhan\BaseL7\Http\Controllers\Controller` to your `Controller`
+- Optionals:
+  + For making dummy User, we need to run `php artisan db:seed --class=BaseL7Seeder`
+
+## Basic
+
+- We work models on folder `Models`
+
+## Setups:
+
+- For the setup authentication: `php artisan basel7:setup --auth`
+  + This command creates an `AuthController` in your `Controllers` folder
+  + For usage, make route and call to functions in this controller 
+
+- For the setup CRUD User: `php artisan basel7:setup --user`
+  + Creates an `UserController` in your `Controllers` folder
+  + Classes `UserFilter` and `CreateUserRequest` in `UserController` are examples, you can replace other classes
+  + For usage, make route and call to functions in this controller
 
 ## Create a model
 
 - Commands:
-  - Auth: php artisan basel7:model Models/{ModelName} --auth
-  - Model: php artisan basel7:model Models/{ModelName}
-  - Pivot: php artisan basel7:model Models/{ModelName} --pivot
+  - Auth: `php artisan basel7:model Models/{ModelName} --auth`
+  - Model: `php artisan basel7:model Models/{ModelName}`
+  - Pivot: `php artisan basel7:model Models/{ModelName} --pivot`
 
 ## Filter
 

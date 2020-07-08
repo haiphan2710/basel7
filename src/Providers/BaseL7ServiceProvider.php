@@ -5,6 +5,8 @@ namespace HaiPhan\BaseL7\Providers;
 use Carbon\Carbon;
 use HaiPhan\BaseL7\Console\Commands\BaseL7Install;
 use HaiPhan\BaseL7\Console\Commands\BaseL7ModelCommand;
+use HaiPhan\BaseL7\Console\Commands\BaseL7SetupCommand;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -20,10 +22,33 @@ class BaseL7ServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
             $this->publishMigrations();
-            $this->publishSeeder();
+            $this->publishSeeds();
             $this->registerCommands();
             $this->passportSetting();
+            $this->publishAuth();
+            $this->publishCrudUser();
         }
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        // TODO
+    }
+
+    /**
+     * Define the application's command schedule.
+     *
+     * @param  Schedule  $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('passport:purge')->daily();
     }
 
     /**
@@ -37,9 +62,11 @@ class BaseL7ServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load migrations
+     * Publishes seeds
+     *
+     * @return void
      */
-    protected function publishSeeder()
+    protected function publishSeeds()
     {
         $this->publishes([
             __DIR__.'/../../database/seeds' => database_path('seeds'),
@@ -47,14 +74,27 @@ class BaseL7ServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register commands with application
+     * Publish Auth files
+     *
+     * @return void
      */
-    protected function registerCommands()
+    protected function publishAuth()
     {
-        $this->commands([
-            BaseL7Install::class,
-            BaseL7ModelCommand::class,
-        ]);
+        $this->publishes([
+            __DIR__.'/Http/Controllers/AuthController.php' => app_path('Http/Controllers/AuthController.php'),
+        ], 'basel7-setup-auth');
+    }
+
+    /**
+     * Publish files for crud User
+     *
+     * @return void
+     */
+    protected function publishCrudUser()
+    {
+        $this->publishes([
+            __DIR__.'/Http/Controllers/UserController.php' => app_path('Http/Controllers/UserController.php'),
+        ], 'basel7-setup-auth');
     }
 
     /**
@@ -88,12 +128,14 @@ class BaseL7ServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any application services.
-     *
-     * @return void
+     * Register commands with application
      */
-    public function register()
+    protected function registerCommands()
     {
-        // TODO
+        $this->commands([
+            BaseL7Install::class,
+            BaseL7ModelCommand::class,
+            BaseL7SetupCommand::class
+        ]);
     }
 }

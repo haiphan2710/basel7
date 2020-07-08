@@ -2,11 +2,15 @@
 
 use App\Models\Role;
 use App\Models\User;
+use HaiPhan\BaseL7\Enums\Role as RoleEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class BaseL7Seeder extends Seeder
 {
+    /** @var array $roles */
+    protected $roles = [];
+
     /**
      * Run the database seeds.
      *
@@ -25,9 +29,11 @@ class BaseL7Seeder extends Seeder
      */
     private function roles()
     {
-        collect(config('basel7.seeders.roles'))->each(function ($role) {
-            Role::create($role);
+        collect(config('basel7.seeds.roles'))->each(function ($role) {
+            $this->roles[] = Role::create($role);
         });
+
+        $this->roles = collect($this->roles);
     }
 
     /**
@@ -39,10 +45,16 @@ class BaseL7Seeder extends Seeder
     {
         $password = Hash::make(env('DEFAULT_USER_PASSWORD', 'secret'));
 
-        collect(config('basel7.seeders.users'))->each(function ($user) use ($password) {
+        collect(config('basel7.seeds.users'))->each(function ($user) use ($password) {
             $user['password'] = $password;
 
-            User::create($user);
+            $new = User::create($user);
+
+            $role = ($user['nickname'] == 'admin_account')
+                ? RoleEnum::ADMIN
+                : RoleEnum::EDITOR;
+
+            $new->attachRole($this->roles->where('name', $role)->first());
         });
     }
 }

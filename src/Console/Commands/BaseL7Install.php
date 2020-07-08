@@ -36,21 +36,35 @@ class BaseL7Install extends Command
         $this->call('passport:install', ['--force']);
         $this->info('Installed Laravel Passport.');
 
-        $this->call('basel7:model', ['name' => 'Models/User', '--auth' => true]);
-        $this->info('Create User model');
-
-        $this->call('basel7:model', ['name' => 'Models/Role', '--role' => true]);
-        $this->info('Create Role model');
+        $this->createModels();
 
         $this->call('db:seed', ['--class' => 'BaseL7Seeder']);
         $this->info('Executed BaseL7Seeder');
+
         $this->info('Installed Package!');
     }
 
+    /**
+     * Publish Setting Files
+     *
+     * @return void
+     */
     protected function publishSettingBaseL7()
     {
         $this->call('vendor:publish', ['--tag' => 'basel7-config']);
         $this->call('vendor:publish', ['--tag' => 'basel7-migration']);
         $this->call('vendor:publish', ['--tag' => 'basel7-seeder']);
+    }
+
+    /**
+     * Create Models
+     *
+     * @return void
+     */
+    protected function createModels()
+    {
+        $this->call('basel7:model', ['name' => 'Models/User', '--auth' => true]);
+        $this->call('basel7:model', ['name' => 'Models/Role', '--role' => true]);
+        $this->info('Create models');
     }
 }

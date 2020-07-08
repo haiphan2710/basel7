@@ -3,7 +3,7 @@
 use HaiPhan\BaseL7\Enums\Role;
 
 return [
-    'seeders' => [
+    'seeds' => [
         'roles' => [
             [
                 'name'         => Role::OWNER,
@@ -23,14 +23,14 @@ return [
         ],
         'users' => [
             [
-                'nickname' => 'admin',
-                'email'    => 'admin@gmail.com',
-                'password' => ''
+                'nickname'  => 'admin_account',
+                'email'     => 'admin@gmail.com',
+                'password'  => ''
             ],
             [
-                'nickname' => 'test_account',
-                'email'    => 'test@gmail.com',
-                'password' => ''
+                'nickname'  => 'test_account',
+                'email'     => 'test@gmail.com',
+                'password'  => ''
             ],
         ]
     ]
