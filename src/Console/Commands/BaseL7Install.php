@@ -33,7 +33,7 @@ class BaseL7Install extends Command
         $this->call('migrate:fresh', ['--seed' => true]);
         $this->info('Migrated and seeded all data.');
 
-        $this->call('passport:install', ['--force']);
+        $this->call('passport:install', ['--force' => true]);
         $this->info('Installed Laravel Passport.');
 
         $this->createModels();
