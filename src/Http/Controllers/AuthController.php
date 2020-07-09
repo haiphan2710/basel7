@@ -2,7 +2,7 @@
 
 namespace HaiPhan\BaseL7\Http\Controllers;
 
-use App\Exceptions\AccountLoggedInException;
+use HaiPhan\BaseL7\Exceptions\AccountLoggedInException;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
