@@ -3,6 +3,7 @@
 namespace HaiPhan\BaseL7\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 class BaseL7SetupCommand extends Command
 {
@@ -22,6 +23,19 @@ class BaseL7SetupCommand extends Command
      */
     protected $description = 'BaseL7 Setup Something';
 
+
+    /**
+     * BaseL7SetupCommand constructor.
+     * @param Filesystem $files
+     */
+    public function __construct(Filesystem $files)
+    {
+        parent::__construct($files);
+
+        $this->addOption('auth');
+        $this->addOption('user');
+    }
+
     /**
      * Execute the console command.
      *
@@ -29,7 +43,7 @@ class BaseL7SetupCommand extends Command
      */
     public function handle()
     {
-        if ($this->option('login')) {
+        if ($this->option('auth')) {
             $this->setupAuth();
             return;
         }

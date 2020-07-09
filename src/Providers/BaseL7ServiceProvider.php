@@ -81,7 +81,7 @@ class BaseL7ServiceProvider extends ServiceProvider
     protected function publishAuth()
     {
         $this->publishes([
-            __DIR__.'/Http/Controllers/AuthController.php' => app_path('Http/Controllers/AuthController.php'),
+            __DIR__.'/../Http/Controllers/AuthController.php' => app_path('Http/Controllers/AuthController.php'),
         ], 'basel7-setup-auth');
     }
 
@@ -93,8 +93,8 @@ class BaseL7ServiceProvider extends ServiceProvider
     protected function publishCrudUser()
     {
         $this->publishes([
-            __DIR__.'/Http/Controllers/UserController.php' => app_path('Http/Controllers/UserController.php'),
-        ], 'basel7-setup-auth');
+            __DIR__.'/../Http/Controllers/UserController.php' => app_path('Http/Controllers/UserController.php'),
+        ], 'basel7-setup-user');
     }
 
     /**
