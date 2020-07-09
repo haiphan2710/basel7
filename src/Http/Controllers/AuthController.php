@@ -1,6 +1,6 @@
 <?php
 
-namespace HaiPhan\BaseL7\Http\Controllers;
+namespace App\Http\Controllers;
 
 use HaiPhan\BaseL7\Exceptions\AccountLoggedInException;
 use App\Models\User;
