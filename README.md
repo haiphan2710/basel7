@@ -23,7 +23,7 @@ Base on Laravel 7
 - Go `providers` in `config/auth` file, update `model.users` to `App\Models\User::class`
 - Extends `HaiPhan\BaseL7\Http\Controllers\Controller` to your `Controller`
 - Optionals:
-  + For making dummy User, we need to run `php artisan db:seed --class=BaseL7Seeder`
+  + For making dummy User, we need to run `php artisan basel7:seed`
 
 ## Basic
 

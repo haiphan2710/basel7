@@ -5,6 +5,7 @@ namespace HaiPhan\BaseL7\Providers;
 use Carbon\Carbon;
 use HaiPhan\BaseL7\Console\Commands\BaseL7Install;
 use HaiPhan\BaseL7\Console\Commands\BaseL7ModelCommand;
+use HaiPhan\BaseL7\Console\Commands\BaseL7SeedsCommand;
 use HaiPhan\BaseL7\Console\Commands\BaseL7SetupCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
@@ -22,7 +23,6 @@ class BaseL7ServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
             $this->publishMigrations();
-            $this->publishSeeds();
             $this->registerCommands();
             $this->passportSetting();
             $this->publishAuth();
@@ -59,18 +59,6 @@ class BaseL7ServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../database/migrations' => database_path('migrations'),
         ], 'basel7-migration');
-    }
-
-    /**
-     * Publishes seeds
-     *
-     * @return void
-     */
-    protected function publishSeeds()
-    {
-        $this->publishes([
-            __DIR__.'/../../database/seeds' => database_path('seeds'),
-        ], 'basel7-seeder');
     }
 
     /**
@@ -135,7 +123,8 @@ class BaseL7ServiceProvider extends ServiceProvider
         $this->commands([
             BaseL7Install::class,
             BaseL7ModelCommand::class,
-            BaseL7SetupCommand::class
+            BaseL7SetupCommand::class,
+            BaseL7SeedsCommand::class
         ]);
     }
 }

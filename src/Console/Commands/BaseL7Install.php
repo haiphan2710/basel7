@@ -50,7 +50,6 @@ class BaseL7Install extends Command
     {
         $this->call('vendor:publish', ['--tag' => 'basel7-config']);
         $this->call('vendor:publish', ['--tag' => 'basel7-migration']);
-        $this->call('vendor:publish', ['--tag' => 'basel7-seeder']);
     }
 
     /**
