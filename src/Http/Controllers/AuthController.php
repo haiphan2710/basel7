@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         $user = $request->user();
 
-        $this->checkLoginAgain($user, $request);
+        $this->checkLoginTimes($user, $request);
 
         $tokenResult       = $user->createToken('Personal Access Token');
         $token             = $tokenResult->token;
@@ -76,7 +76,7 @@ class AuthController extends Controller
      * @param AuthRequest $request
      * @throws Throwable
      */
-    protected function checkLoginAgain(User $user, AuthRequest $request)
+    protected function checkLoginTimes(User $user, AuthRequest $request)
     {
         if ($user->tokens()->count() > 0) {
             throw_if(!$request->new_auth, AccountLoggedInException::class);
