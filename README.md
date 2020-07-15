@@ -6,8 +6,8 @@ Base on Laravel 7
 - We build classes for making easy coding with laravel 7
 
 - Reference:
-  + Generate uuid       => goldspecdigital/laravel-eloquent-uuid
-  + Enum                => bensampo/laravel-enum
+  + Generate uuid => <a href="https://github.com/goldspecdigital/laravel-eloquent-uuid">goldspecdigital/laravel-eloquent-uuid</a>
+  + Enum          => <a href="https://github.com/BenSampo/laravel-enum">bensampo/laravel-enum</a>
 
 # Usage Package
 
