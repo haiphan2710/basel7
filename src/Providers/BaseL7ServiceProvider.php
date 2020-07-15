@@ -92,15 +92,7 @@ class BaseL7ServiceProvider extends ServiceProvider
      */
     protected function publishConfig()
     {
-        $this->publishes([
-            __DIR__.'/../../config/basel7.php' => config_path('basel7.php'),
-        ], 'basel7-config');
-        $this->publishes([
-            __DIR__.'/../../config/laratrust.php' => config_path('laratrust.php'),
-        ], 'basel7-config');
-        $this->publishes([
-            __DIR__.'/../../config/laratrust_seeder.php' => config_path('laratrust_seeder.php'),
-        ], 'basel7-config');
+        // TODO
     }
 
     /**

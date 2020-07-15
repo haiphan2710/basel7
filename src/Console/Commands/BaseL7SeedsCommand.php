@@ -5,6 +5,7 @@ namespace HaiPhan\BaseL7\Console\Commands;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use HaiPhan\BaseL7\Enums\Role as RoleEnum;
 
@@ -24,9 +25,6 @@ class BaseL7SeedsCommand extends Command
      */
     protected $description = 'BaseL7 make dummy data';
 
-    /** @var array $roles */
-    protected $roles = [];
-
     /**
      * Execute the console command.
      *
@@ -34,11 +32,13 @@ class BaseL7SeedsCommand extends Command
      */
     public function handle()
     {
-        $this->roles();
-        $this->info('Created Roles!');
+        DB::transaction(function () {
+            $this->roles();
+            $this->info('Created Roles!');
 
-        $this->users();
-        $this->info('Created Users!');
+            $this->users();
+            $this->info('Created Users!');
+        });
     }
 
     /**
@@ -48,11 +48,27 @@ class BaseL7SeedsCommand extends Command
      */
     private function roles()
     {
-        collect(config('basel7.seeds.roles'))->each(function ($role) {
-            $this->roles[] = Role::create($role);
-        });
+        $roles = [
+            [
+                'name'         => RoleEnum::OWNER,
+                'display_name' => 'Owner Of System', // optional
+                'description'  => 'Full power in the system', // optional
+            ],
+            [
+                'name'         => RoleEnum::ADMIN,
+                'display_name' => 'User Administrator', // optional
+                'description'  => 'Manage all content', // optional
+            ],
+            [
+                'name'         => RoleEnum::EDITOR,
+                'display_name' => 'User Editor', // optional
+                'description'  => 'User is allowed to manage contents', // optional
+            ],
+        ];
 
-        $this->roles = collect($this->roles);
+        collect($roles)->each(function ($role) {
+            Role::create($role);
+        });
     }
 
     /**
@@ -64,16 +80,30 @@ class BaseL7SeedsCommand extends Command
     {
         $password = Hash::make(env('DEFAULT_USER_PASSWORD', 'secret'));
 
-        collect(config('basel7.seeds.users'))->each(function ($user) use ($password) {
-            $user['password'] = $password;
+        $users = [
+            [
+                'nickname' => 'admin_account',
+                'email'    => 'admin@gmail.com',
+                'password' => $password
+            ],
+            [
+                'nickname' => 'test_account',
+                'email'    => 'test@gmail.com',
+                'password' => $password
+            ],
+        ];
 
-            $new = User::create($user);
+        $userRole = [
+            'admin_account' => RoleEnum::ADMIN,
+            'test_account'  => RoleEnum::EDITOR
+        ];
 
-            $role = ($user['nickname'] == 'admin_account')
-                ? RoleEnum::ADMIN
-                : RoleEnum::EDITOR;
+        collect($users)->each(function ($user) use ($userRole) {
 
-            $new->attachRole($this->roles->where('name', $role)->first());
+            $new  = User::create($user);
+            $role = $userRole[$user['nickname']];
+
+            $new->attachRole($role);
         });
     }
 }

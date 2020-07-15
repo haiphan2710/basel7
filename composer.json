@@ -12,8 +12,7 @@
         "php": "^7.2.5",
         "bensampo/laravel-enum": "^1.37",
         "goldspecdigital/laravel-eloquent-uuid": "^7.0",
-        "laravel/passport": "^9.2",
-        "santigarcor/laratrust": "^6.1"
+        "laravel/passport": "^9.2"
     },
     "autoload": {
         "psr-4": {

@@ -37,6 +37,7 @@ class BaseL7Install extends Command
         $this->info('Installed Laravel Passport.');
 
         $this->createModels();
+        $this->makeDummyData();
 
         $this->info('Installed Package!');
     }
@@ -48,7 +49,7 @@ class BaseL7Install extends Command
      */
     protected function publishSettingBaseL7()
     {
-        $this->call('vendor:publish', ['--tag' => 'basel7-config']);
+//        $this->call('vendor:publish', ['--tag' => 'basel7-config']);
         $this->call('vendor:publish', ['--tag' => 'basel7-migration']);
     }
 
@@ -60,7 +61,20 @@ class BaseL7Install extends Command
     protected function createModels()
     {
         $this->call('basel7:model', ['name' => 'Models/User', '--auth' => true]);
-        $this->call('basel7:model', ['name' => 'Models/Role', '--role' => true]);
-        $this->info('Create models');
+        $this->call('basel7:model', ['name' => 'Models/Role']);
+        $this->info('Created models');
+    }
+
+    /**
+     * Make data dummy (roles, users)
+     *
+     * @return void
+     */
+    protected function makeDummyData()
+    {
+        $this->call('basel7:seed');
+        $this->info('Created Roles: Owner, Admin, Editor');
+        $this->info('Created User: admin@gmail.com | secret');
+        $this->info('Created User: test@gmail.com | secret');
     }
 }
