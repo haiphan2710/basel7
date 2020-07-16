@@ -79,7 +79,9 @@ class AuthController extends Controller
     protected function checkLoginTimes(User $user, AuthRequest $request)
     {
         if ($user->tokens()->count() > 0) {
-            throw_if(!$request->new_auth, AccountLoggedInException::class);
+            if (!$request->new_auth) {
+                abort(401, 'USER_LOGGED_IN');
+            }
 
             $user->tokens()->delete();
         }
