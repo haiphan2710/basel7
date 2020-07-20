@@ -17,7 +17,6 @@ Base on Laravel 7
 
 ## Install BaseL7
 
-- Add `BaseL7ServiceProvider` to `providers` in `config/app` file
 - For installing BaseL7: `php artisan basel7:install`
 - Go `providers` in `config/auth` file, update `model.users` to `App\Models\User::class`
 - Extends `HaiPhan\BaseL7\Http\Controllers\Controller` to your `Controller`
