@@ -36,9 +36,12 @@ Base on Laravel 7
   + Creates an `UserController` in your `Controllers` folder
   + Classes `UserFilter` and `CreateUserRequest` in `UserController` are examples, you can replace other classes
   + For usage, make routes and call to functions in this controller
+  
+- Note: The above setups are for reference
 
 ## Create a model
 
+- We work on `Models` folder in `app` folder
 - Commands:
   - Auth: `php artisan basel7:model Models/{ModelName} --auth`
   - Model: `php artisan basel7:model Models/{ModelName}`
